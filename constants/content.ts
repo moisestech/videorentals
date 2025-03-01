@@ -54,7 +54,7 @@ export const TVS = [
 
 export const MANIFESTO = `Connecting Miami's creatives with high-quality TV rentals to showcase their work without limits.
 
-Tech should fuel creativity, not gatekeep it. Whether you're curating an immersive gallery, producing mind-bending video art, or crafting digital experiences that make people stop and stare, we've got the screens to make it happen—no overpriced BS, no hassle.
+Whether you're curating an immersive gallery, producing mind-bending video art, or crafting digital experiences, we've got the screens to make it happen.
 
 We're artists, just like you. That's why we keep things flexible, affordable, and community-focused. Because when creatives have the right tools, they push culture forward.
 
