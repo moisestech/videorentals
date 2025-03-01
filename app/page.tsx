@@ -42,9 +42,8 @@ export default function Home() {
             ease: [0.2, 0.65, 0.3, 0.9],
             delay: 0.2
           }}
-          className="text-[10rem] md:text-[8rem] sm:text-[6rem] leading-none font-bold font-[strateen] mb-12 relative z-2"
+          className="text-[4rem] sm:text-[3rem] md:text-[8rem] lg:text-[10rem] leading-none font-bold font-[strateen] mb-12 relative z-2"
         >
-          {/* Split text into characters for individual animation */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -107,7 +106,7 @@ export default function Home() {
             ease: [0.2, 0.65, 0.3, 0.9],
             delay: 0.8
           }}
-          className="max-w-6xl text-6xl leading-tight text-center text-white/80 whitespace-pre-line relative z-2 font-[strateen] mb-[200px]"
+          className="max-w-6xl text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight text-center text-white/80 whitespace-pre-line relative z-2 font-[strateen] mb-[200px] px-4"
         >
           {MANIFESTO}
         </motion.p>
@@ -152,7 +151,7 @@ export default function Home() {
               bounce: 0.3
             }}
             onClick={() => setRentOpen(!rentOpen)}
-            className="w-full max-w-7xl mx-auto py-6 text-4xl font-bold bg-white text-black hover:bg-gray-100 transition-colors font-[strateen]"
+            className="w-full max-w-7xl mx-auto py-4 sm:py-6 text-2xl sm:text-3xl md:text-4xl font-bold bg-white text-black hover:bg-gray-100 transition-colors font-[strateen]"
           >
             RENT
           </motion.button>
@@ -166,7 +165,7 @@ export default function Home() {
               delay: 1.4,
               bounce: 0.3
             }}
-            className="w-full max-w-7xl mx-auto py-6 text-4xl font-bold bg-black text-white border-t border-white hover:bg-gray-900 transition-colors font-[strateen]"
+            className="w-full max-w-7xl mx-auto py-4 sm:py-6 text-2xl sm:text-3xl md:text-4xl font-bold bg-black text-white border-t border-white hover:bg-gray-900 transition-colors font-[strateen]"
             onClick={() => setContactOpen(true)}
           >
             CONTACT
