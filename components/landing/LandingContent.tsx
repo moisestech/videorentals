@@ -34,6 +34,18 @@ export default function LandingContent() {
     <div className="relative min-h-screen text-white">
       <CustomCursor />
 
+      {/* Site Icon */}
+      <div className="fixed top-6 left-6 z-50">
+        <a 
+          href="https://videolab.watch" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-2xl font-[strateen] hover:opacity-80 transition-opacity"
+        >
+          VL
+        </a>
+      </div>
+
       {/* Full Height Banner */}
       <div className="w-full min-h-screen flex flex-col items-center justify-center p-8 relative overflow-hidden">
         <GradientBackground />
@@ -59,7 +71,7 @@ export default function LandingContent() {
             className="matrix-text"
           >
             <motion.div className="flex matrix-line" data-text="VIDEO">
-              {"VIDEO".split("").map((char, i) => (
+              {"TV305".split("").map((char, i) => (
                 <motion.span
                   key={i}
                   variants={{
