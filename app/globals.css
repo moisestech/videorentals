@@ -221,7 +221,7 @@
 
 .matrix-line {
   color: #ff69b4;
-  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+  text-shadow: 0 0 2px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
   position: relative;
 }
 
