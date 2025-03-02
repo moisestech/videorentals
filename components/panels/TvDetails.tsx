@@ -4,7 +4,6 @@ import type { TV } from "@/types";
 
 // REACT & NEXT
 import { useState } from "react";
-import Image from "next/image";
 
 // THIRD PARTY
 import { motion } from "framer-motion";
@@ -21,7 +20,6 @@ import { Button } from "@/components/ui/button";
 // ICONS
 import { Share2 } from "lucide-react";
 
-
 interface TvDetailsProps {
   tv: TV | null;
   onClose?: () => void;
@@ -35,6 +33,8 @@ export default function TvDetails({
   onRentNow = () => {}, 
   isPage = false 
 }: TvDetailsProps) {
+  const [copied, setCopied] = useState(false);
+
   if (!tv) return null;
 
   const validImages = getValidImages(tv.images);
@@ -44,23 +44,21 @@ export default function TvDetails({
 
   const allValidImages = [...validImages, ...validAccessoryImages];
 
-  const [copied, setCopied] = useState(false);
-
   const handleShare = async () => {
-    const url = `${window.location.origin}/tv/${tv.id}`;
+    const shareUrl = `${window.location.origin}/tv/${tv.id}`;
     
     if (navigator.share) {
       try {
         await navigator.share({
-          title: tv.name,
+          title: `TV305 - ${tv.name}`,
           text: tv.technicalName,
-          url: url,
+          url: shareUrl,
         });
       } catch (err) {
         console.log('Error sharing:', err);
       }
     } else {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -82,7 +80,7 @@ export default function TvDetails({
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={onClose}
-            className="absolute top-6 right-6 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors z-10"
+            className="absolute top-6 right-6 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors z-12"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -90,24 +88,11 @@ export default function TvDetails({
           </motion.button>
         )}
 
-        <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-          <div>
+        <div className="p-6 border-b border-gray-200 relative z-10">
+          <div className="max-w-[1400px] mx-auto flex flex-col items-center text-center">
             <h2 className="text-4xl font-[strateen]">{tv.name}</h2>
             <p className="text-xl text-gray-600 mt-2">{tv.technicalName}</p>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleShare}
-            className="relative"
-          >
-            <Share2 className="h-5 w-5" />
-            {copied && (
-              <span className="absolute -bottom-8 whitespace-nowrap text-sm">
-                URL Copied!
-              </span>
-            )}
-          </Button>
         </div>
 
         <div className="p-6 pb-32 h-[calc(100vh-88px)] overflow-y-auto">
@@ -163,7 +148,19 @@ export default function TvDetails({
         </div>
 
         <div className="fixed bottom-0 left-0 right-0 p-6 bg-white border-t border-gray-200 z-20">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="max-w-[1400px] mx-auto space-y-4">
+            <Button 
+              onClick={handleShare}
+              className="w-full py-6 text-xl font-[strateen] bg-white hover:bg-gray-50 border border-black text-black flex items-center justify-center gap-2"
+              size="lg"
+            >
+              SHARE <Share2 className="h-5 w-5 rotate-45" />
+              {copied && (
+                <span className="absolute -top-8 text-sm bg-black text-white px-3 py-1 rounded-md">
+                  URL Copied!
+                </span>
+              )}
+            </Button>
             <Button 
               onClick={onRentNow}
               className="w-full py-8 text-2xl font-[strateen] bg-black hover:bg-gray-900"

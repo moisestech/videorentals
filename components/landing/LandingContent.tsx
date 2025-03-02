@@ -1,16 +1,19 @@
 "use client";
 
+import type { TV } from "@/types";
+
 // REACT
 import { useState } from "react";
 
 // THIRD PARTY
 import { motion, AnimatePresence } from "framer-motion";
 
-// TYPES
-import type { TV } from "@/types";
 
 // CONSTANTS
 import { MANIFESTO } from "@/constants/manifesto";
+
+// HOOKS
+import { useScrollPosition } from "@/hooks/useScrollPosition";
 
 // COMPONENTS
 import CustomCursor from "@/components/layout/CustomCursor";
@@ -18,11 +21,19 @@ import GradientBackground from "@/components/layout/GradientBackground";
 import ContactPanel from "@/components/panels/ContactPanel";
 import RentPanel from "@/components/panels/RentPanel";
 import TvDetails from "@/components/panels/TvDetails";
+import AnimatedTitle from "@/components/layout/AnimatedTitle";
+
+// ICONS
+import { Tv } from "lucide-react";
 
 export default function LandingContent() {
   const [rentOpen, setRentOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [selectedTv, setSelectedTv] = useState<TV | null>(null);
+  const scrollY = useScrollPosition();
+
+  // Determine if we should show white background
+  const showWhiteBackground = rentOpen || scrollY > 100; // Adjust 100 to your preferred scroll threshold
 
   const handleRentNow = () => {
     setContactOpen(true);
@@ -35,87 +46,43 @@ export default function LandingContent() {
       <CustomCursor />
 
       {/* Site Icon */}
-      <div className="fixed top-6 left-6 z-50">
+      <motion.div 
+        className="fixed top-6 left-6 z-50"
+        animate={{ 
+          backgroundColor: showWhiteBackground ? 'white' : 'transparent',
+          padding: showWhiteBackground ? '0.5rem 1rem' : '0',
+          borderRadius: showWhiteBackground ? '0.5rem' : '0'
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Desktop Text */}
         <a 
-          href="https://videolab.watch" 
+          href="https://tv305.miami" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-2xl font-[strateen] hover:opacity-80 transition-opacity"
+          className={`hidden sm:block text-2xl font-[strateen] hover:opacity-80 transition-opacity ${
+            showWhiteBackground ? 'text-black' : 'text-white'
+          }`}
         >
-          VL
+          TV305
         </a>
-      </div>
+        {/* Mobile Icon */}
+        <div className="block sm:hidden">
+          <Tv 
+            size={24} 
+            className={showWhiteBackground ? 'text-black' : 'text-white'} 
+          />
+        </div>
+      </motion.div>
 
       {/* Full Height Banner */}
       <div className="w-full min-h-screen flex flex-col items-center justify-center p-8 relative overflow-hidden">
         <GradientBackground />
         <div className="matrix-rain" />
         
-        {/* Animated Title */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.8,
-            ease: [0.2, 0.65, 0.3, 0.9],
-            delay: 0.2
-          }}
-          className="text-[4rem] sm:text-[3rem] md:text-[8rem] lg:text-[10rem] leading-none font-bold font-[strateen] mb-12 relative z-2"
-        >
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              visible: { transition: { staggerChildren: 0.03 } }
-            }}
-            className="matrix-text"
-          >
-            <motion.div className="flex matrix-line" data-text="VIDEO">
-              {"TV305".split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: { 
-                      opacity: 1, 
-                      y: 0,
-                      transition: {
-                        type: "spring",
-                        damping: 12,
-                        stiffness: 200
-                      }
-                    }
-                  }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-            </motion.div>
-            <motion.div className="flex matrix-line" data-text="RENTALS">
-              {"RENTALS".split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: { 
-                      opacity: 1, 
-                      y: 0,
-                      transition: {
-                        type: "spring",
-                        damping: 12,
-                        stiffness: 200
-                      }
-                    }
-                  }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-            </motion.div>
-          </motion.div>
-        </motion.h1>
+        <AnimatedTitle className="mb-12 relative z-2" />
 
-        {/* Animated Manifesto */}
+        {/* Animated Manifesto with responsive fonts */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -124,7 +91,7 @@ export default function LandingContent() {
             ease: [0.2, 0.65, 0.3, 0.9],
             delay: 0.8
           }}
-          className="max-w-6xl text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight text-center text-white/80 whitespace-pre-line relative z-2 font-[strateen] mb-[200px] px-4"
+          className="max-w-6xl text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-relaxed text-center text-white/90 whitespace-pre-line relative z-2 font-[Inter] sm:font-[strateen] font-light tracking-wide mb-[200px] px-4"
         >
           {MANIFESTO}
         </motion.p>

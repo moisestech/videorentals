@@ -34,6 +34,18 @@ export default function RentPanel({ isOpen, onClose, onSelectTv }: RentPanelProp
         <div className="gradient-bg absolute inset-0" />
         <div className="matrix-rain" />
 
+        {/* Logo */}
+        <div className="absolute top-6 left-6 z-20">
+          <a 
+            href="https://videolab.watch" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-2xl font-[strateen] hover:opacity-80 transition-opacity"
+          >
+            TV305
+          </a>
+        </div>
+
         <motion.button
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -53,7 +65,7 @@ export default function RentPanel({ isOpen, onClose, onSelectTv }: RentPanelProp
           </svg>
         </motion.button>
 
-        <div className="p-6 border-b border-white/10 relative z-10">
+        <div className="p-6 border-b border-white/10 relative z-10 text-center">
           <h2 className="text-4xl font-[strateen] text-white">Available TVs</h2>
         </div>
 

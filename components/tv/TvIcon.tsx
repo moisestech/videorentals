@@ -6,9 +6,6 @@ import Image from "next/image";
 // THIRD PARTY
 import { motion, AnimatePresence } from "framer-motion";
 
-// UTILS
-import { isValidImageData } from "@/utils/validation";
-
 interface TvIconProps {
   heroImage?: string;
   subHeroImage?: string;

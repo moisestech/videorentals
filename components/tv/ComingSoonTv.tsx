@@ -61,7 +61,7 @@ export default function ComingSoonTv({ onClick }: ComingSoonTvProps) {
               </button>
               <h3 className="text-3xl font-[strateen] mb-4 text-black">Stay Tuned</h3>
               <p className="text-xl leading-relaxed text-black">
-                Get ready for our next wave of cutting-edge displays. We're curating an exclusive collection of screens that will push the boundaries of what's possible in digital art and immersive experiences.
+                {`Get ready for our next wave of cutting-edge displays. We're curating an exclusive collection of screens that will push the boundaries of what's possible in digital art and immersive experiences.`}
               </p>
             </motion.div>
           </>

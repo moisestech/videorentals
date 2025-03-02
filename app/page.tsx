@@ -9,10 +9,10 @@ export const metadata: Metadata = {
     title: 'Video Rentals Miami | TV Rentals for Artists & Galleries',
     description: 'High-quality TV and display rentals for Miami\'s creative community. Perfect for art galleries, installations, student exhibitions, and immersive experiences.',
     type: 'website',
-    url: 'https://videorentals.miami',
+    url: 'https://tv305.miami',
     images: [
       {
-        url: 'https://videorentals.miami/og-image.jpg',
+        url: 'https://tv305.miami/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Video Rentals Miami - TV Displays for Creative Exhibitions'
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Video Rentals Miami | TV Rentals for Artists & Galleries',
     description: 'High-quality TV and display rentals for Miami\'s creative community. Perfect for art galleries, installations, and immersive experiences.',
-    images: ['https://videorentals.miami/og-image.jpg'],
+    images: ['https://tv305.miami/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     google: 'your-google-verification-code',
   },
   alternates: {
-    canonical: 'https://videorentals.miami'
+    canonical: 'https://tv305.miami'
   }
 };
 
