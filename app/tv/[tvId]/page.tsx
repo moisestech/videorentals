@@ -6,16 +6,19 @@ import TvDetails from '@/components/panels/TvDetails';
 // CONSTANTS
 import { TVS } from '@/constants/tvs';
 
+type Params = Promise<{ tvId: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
 interface PageProps {
-  params: { tvId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Params;
+  searchParams: SearchParams;
 }
 
 export default async function TvPage({
   params,
-  searchParams,
 }: PageProps) {
-  const tv = await getTvById(params.tvId);
+  const resolvedParams = await params;
+  const tv = await getTvById(resolvedParams.tvId);
   
   if (!tv) {
     return (
