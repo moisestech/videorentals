@@ -1,177 +1,51 @@
-"use client";
+import type { Metadata } from 'next';
+import LandingContent from '@/components/landing/LandingContent';
 
-import type { TV } from "@/types";
-
-// REACT
-import { useState } from "react";
-
-// THIRD PARTY
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
-
-// CONSTANTS
-import { MANIFESTO } from "@/constants/content";
-
-// COMPONENTS
-import CustomCursor from "@/components/CustomCursor";
-import GradientBackground from "@/components/GradientBackground";
-import ContactPanel from "@/components/ContactPanel";
-import RentPanel from "@/components/RentPanel";
-import TvDetails from "@/components/TvDetails";
+export const metadata: Metadata = {
+  title: 'Video Rentals Miami | TV Rentals for Artists & Galleries',
+  description: 'High-quality TV and display rentals for Miami\'s creative community. Perfect for art galleries, installations, student exhibitions, and immersive experiences. Flexible, affordable, community-focused.',
+  keywords: 'TV rental Miami, art gallery displays, exhibition screens, digital art installation, creative display rental, art show equipment, gallery TV rental, student exhibition rental',
+  openGraph: {
+    title: 'Video Rentals Miami | TV Rentals for Artists & Galleries',
+    description: 'High-quality TV and display rentals for Miami\'s creative community. Perfect for art galleries, installations, student exhibitions, and immersive experiences.',
+    type: 'website',
+    url: 'https://videorentals.miami',
+    images: [
+      {
+        url: 'https://videorentals.miami/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Video Rentals Miami - TV Displays for Creative Exhibitions'
+      }
+    ],
+    locale: 'en_US',
+    siteName: 'Video Rentals Miami'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Video Rentals Miami | TV Rentals for Artists & Galleries',
+    description: 'High-quality TV and display rentals for Miami\'s creative community. Perfect for art galleries, installations, and immersive experiences.',
+    images: ['https://videorentals.miami/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
+  alternates: {
+    canonical: 'https://videorentals.miami'
+  }
+};
 
 export default function Home() {
-  const [rentOpen, setRentOpen] = useState(false);
-  const [contactOpen, setContactOpen] = useState(false);
-  const [selectedTv, setSelectedTv] = useState<TV | null>(null);
-
-  return (
-    <div className="relative min-h-screen text-white">
-      <CustomCursor />
-
-      {/* Full Height Banner */}
-      <div className="w-full min-h-screen flex flex-col items-center justify-center p-8 relative overflow-hidden">
-        <GradientBackground />
-        <div className="matrix-rain" />
-        
-        {/* Animated Title */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.8,
-            ease: [0.2, 0.65, 0.3, 0.9],
-            delay: 0.2
-          }}
-          className="text-[4rem] sm:text-[3rem] md:text-[8rem] lg:text-[10rem] leading-none font-bold font-[strateen] mb-12 relative z-2"
-        >
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              visible: { transition: { staggerChildren: 0.03 } }
-            }}
-            className="matrix-text"
-          >
-            <motion.div className="flex matrix-line" data-text="VIDEO">
-              {"VIDEO".split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: { 
-                      opacity: 1, 
-                      y: 0,
-                      transition: {
-                        type: "spring",
-                        damping: 12,
-                        stiffness: 200
-                      }
-                    }
-                  }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-            </motion.div>
-            <motion.div className="flex matrix-line" data-text="RENTALS">
-              {"RENTALS".split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: { 
-                      opacity: 1, 
-                      y: 0,
-                      transition: {
-                        type: "spring",
-                        damping: 12,
-                        stiffness: 200
-                      }
-                    }
-                  }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-            </motion.div>
-          </motion.div>
-        </motion.h1>
-
-        {/* Animated Manifesto */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 1,
-            ease: [0.2, 0.65, 0.3, 0.9],
-            delay: 0.8
-          }}
-          className="max-w-6xl text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight text-center text-white/80 whitespace-pre-line relative z-2 font-[strateen] mb-[200px] px-4"
-        >
-          {MANIFESTO}
-        </motion.p>
-      </div>
-
-      {/* Fixed Bottom Buttons */}
-      <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center z-10">
-        <div className="w-full max-w-7xl mx-auto flex flex-col">
-          <AnimatePresence mode="wait">
-            {rentOpen && (
-              <RentPanel 
-                key="rent-panel"
-                isOpen={rentOpen}
-                onClose={() => setRentOpen(false)}
-                onSelectTv={setSelectedTv}
-              />
-            )}
-            {selectedTv && (
-              <TvDetails 
-                key="tv-details"
-                tv={selectedTv}
-                onClose={() => setSelectedTv(null)}
-              />
-            )}
-            {contactOpen && (
-              <ContactPanel 
-                key="contact-panel"
-                isOpen={contactOpen}
-                onClose={() => setContactOpen(false)}
-              />
-            )}
-          </AnimatePresence>
-
-          {/* Animated Buttons */}
-          <motion.button 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ 
-              type: "spring",
-              duration: 0.5,
-              delay: 1.2,
-              bounce: 0.3
-            }}
-            onClick={() => setRentOpen(!rentOpen)}
-            className="w-full max-w-7xl mx-auto py-4 sm:py-6 text-2xl sm:text-3xl md:text-4xl font-bold bg-white text-black hover:bg-gray-100 transition-colors font-[strateen]"
-          >
-            RENT
-          </motion.button>
-          
-          <motion.button 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ 
-              type: "spring",
-              duration: 0.5,
-              delay: 1.4,
-              bounce: 0.3
-            }}
-            className="w-full max-w-7xl mx-auto py-4 sm:py-6 text-2xl sm:text-3xl md:text-4xl font-bold bg-black text-white border-t border-white hover:bg-gray-900 transition-colors font-[strateen]"
-            onClick={() => setContactOpen(true)}
-          >
-            CONTACT
-          </motion.button>
-        </div>
-      </div>
-    </div>
-  );
+  return <LandingContent />;
 }
